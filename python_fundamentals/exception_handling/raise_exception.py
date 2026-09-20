@@ -4,4 +4,4 @@ def raise_exception():
     try:
         print("{:d}".format(none))
     except TypeError:
-        pass
+        print("Exception has been raised")
