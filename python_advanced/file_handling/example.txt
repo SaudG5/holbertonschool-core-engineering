@@ -1,2 +1,1 @@
-Example
-Name: saud
+This is a test.
