@@ -7,7 +7,7 @@ import websockets
 async def connection_handler(websocket):
     """Reply ERR:EMPTY for empty messages, else OK:<message>."""
     async for message in websocket:
-        if len(message) == 0:
+        if message.strip() == "":
             await websocket.send("ERR:EMPTY")
         else:
             await websocket.send(f"OK:{message}")
