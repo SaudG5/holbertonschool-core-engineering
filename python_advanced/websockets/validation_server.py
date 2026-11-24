@@ -1,24 +1,22 @@
 #!/usr/bin/env python3
-"""A simple WebSocket client that connects to the echo server."""
+"""A WebSocket server that validates incoming messages."""
 import asyncio
 import websockets
 
 
-async def connect_and_send(uri: str, text: str) -> str:
-    """Connect to uri, send text once, and return the reply."""
-    async with websockets.connect(uri) as websocket:
-        await websocket.send(text)
-        response = await websocket.recv()
-        if len(response) == 0:
-             print("ERR:EMPTY")
+async def connection_handler(websocket):
+    """Reply ERR:EMPTY for empty messages, else OK:<message>."""
+    async for message in websocket:
+        if len(message) == 0:
+            await websocket.send("ERR:EMPTY")
         else:
-            print(f"OK:{response}")
+            await websocket.send(f"OK:{message}")
 
 
 async def main():
-    """Send 'Hello WebSocket' to the server and print the reply."""
-    response = await connect_and_send("ws://localhost:8765", "")
-    print(response, end="")
+    """Start the server on localhost:8765."""
+    async with websockets.serve(connection_handler, "127.0.0.1", 8765):
+        await asyncio.Future()
 
 
 if __name__ == "__main__":
