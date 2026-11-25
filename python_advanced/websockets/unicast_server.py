@@ -8,7 +8,6 @@ async def handler(websocket):
     try:
         async for message in websocket:
             await websocket.send("U:" + message)
-            await websocket.receive()  # Wait for the client to acknowledge the message
     finally:
         connected_clients.remove(websocket)
 
