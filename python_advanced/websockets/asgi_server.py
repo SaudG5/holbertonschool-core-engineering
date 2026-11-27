@@ -4,7 +4,7 @@ import asyncio
 import websockets
 from starlette import applications, responses, routing
 
-    
+
 async def homepage(request):
     """Return the HTML page."""
     return responses.HTMLResponse("<h1>WebSocket Echo</h1>")
