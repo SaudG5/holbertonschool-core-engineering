@@ -17,5 +17,7 @@ async def websocket_endpoint(websocket):
         await websocket.send_text(message)
 
 
-app = applications.Starlette(routes=[routing.Route("/", homepage),routing.WebSocketRoute("/ws", websocket_endpoint),]
-)
+app = applications.Starlette(routes=[
+    routing.Route("/", homepage),
+    routing.WebSocketRoute("/ws", websocket_endpoint),
+])
